@@ -239,6 +239,10 @@ def check_dangerous_functions(code: str) -> List[Dict[str, Any]]:
         '__import__',
         'pickle.loads',
         'spawn(',
+        'getattr(',  # Block getattr to prevent bypass via getattr(os, 'system')
+        'setattr(',  # Block setattr to prevent attribute manipulation
+        '__getattribute__',  # Block dunder methods that can bypass checks
+        '__getattr__',
     ]
 
     results = []
